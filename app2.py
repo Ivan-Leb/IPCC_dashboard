@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from PIL import Image
+import base64
 
 # Function to prepare the data
 def prepare_data():
@@ -27,7 +29,7 @@ def prepare_data():
         return pd.DataFrame(), pd.DataFrame()
 
 # Function to create a simple temperature plot
-def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=True, show_new_times=True):
+def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_times=True):
     fig, ax = plt.subplots(figsize=(8, 5))
     
     # Plot the old temperatures (blue)
@@ -40,22 +42,6 @@ def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=
     
     # Add a horizontal line at zero
     ax.axhline(0, color="black", linestyle="--", alpha=0.5)
-    
-    # Add time markers if provided
-    if time_markers and len(time_markers) > 0:
-        for marker in time_markers:
-            if marker['show']:
-                year = marker['year']
-                # Check if the year is within the visible range
-                if ((show_old_times and year < 1850) or 
-                    (show_new_times and year >= 1850)):
-                    # Draw a vertical line at the marker year
-                    ax.axvline(x=year, color=marker['color'], linestyle='-', alpha=0.3, linewidth=10)
-                    # Add an annotation above the chart
-                    ax.annotate(marker['label'], xy=(year, ax.get_ylim()[1]), 
-                                xytext=(0, 10), textcoords='offset points',
-                                ha='center', fontsize=9,
-                                bbox=dict(boxstyle="round,pad=0.3", fc=marker['color'], alpha=0.3))
     
     # Styling
     ax.set_title("Earth's Temperature Story", fontsize=16, fontweight="bold")
@@ -82,6 +68,51 @@ def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=
     plt.tight_layout()
     
     return fig
+
+# Define cartoon character explanation components
+def get_cartoon_explanations():
+    # Since we can't actually include images in this response, 
+    # we'll use emoji as placeholders. In a real implementation, 
+    # you'd replace these with actual cartoon character images.
+    
+    x_axis_explanation = """
+    <div style="background-color:#FFE6E6; padding:15px; border-radius:15px; border:2px dashed #FF6347;">
+    <div style="display:flex; align-items:center;">
+    <div style="font-size:60px; margin-right:15px;">👧</div>
+    <div>
+    <p style="font-size:18px; font-weight:bold;">What does the Time (x-axis) show?</p>
+    <p style="font-size:16px;">
+    Hi! I'm Tina Time! The bottom of the chart shows <b>years</b> from a long time ago (year 0) 
+    until now (year 2020). As you move from left to right, you're traveling through time like a time machine!
+    <br><br>
+    The <span style="color:blue">blue line</span> shows temperature from a long time ago.
+    The <span style="color:red">red line</span> shows more recent temperatures.
+    </p>
+    </div>
+    </div>
+    </div>
+    """
+    
+    y_axis_explanation = """
+    <div style="background-color:#E6F9FF; padding:15px; border-radius:15px; border:2px dashed #6495ED;">
+    <div style="display:flex; align-items:center;">
+    <div style="font-size:60px; margin-right:15px;">🧒</div>
+    <div>
+    <p style="font-size:18px; font-weight:bold;">What does the Temperature (y-axis) show?</p>
+    <p style="font-size:16px;">
+    Hey there! I'm Theo Thermo! The side of the chart shows how the Earth's temperature has changed.
+    <br><br>
+    The middle line (0) is the normal temperature. When the line goes up ↑, Earth is getting warmer.
+    When the line goes down ↓, Earth is getting cooler.
+    <br><br>
+    See how the red line shoots up at the end? That means Earth is getting much warmer very quickly!
+    </p>
+    </div>
+    </div>
+    </div>
+    """
+    
+    return x_axis_explanation, y_axis_explanation
 
 # Streamlit App
 def main():
@@ -119,59 +150,10 @@ def main():
     with st.sidebar:
         st.title("Play with the Chart!")
         
-        # Simple toggles for lines
+        # Simple toggles for lines - ONLY KEEPING THESE TWO FILTERS
         st.subheader("🎨 Show or Hide Lines")
         show_old = st.checkbox("Show Blue Line (Long Ago)", value=True)
         show_new = st.checkbox("Show Red Line (Now)", value=True)
-        
-        # Time period markers with more historically accurate periods
-        st.subheader("📅 Show Important Historical Periods")
-        
-        # Define markers for different periods - using historically accurate periods within the 0-2000 CE range
-        time_markers = [
-            {
-                'name': 'roman_empire',
-                'year': 100,
-                'label': '🏛️ Roman Empire',
-                'color': 'gold',
-                'show': st.checkbox('🏛️ Roman Empire (100 CE)', value=False)
-            },
-            {
-                'name': 'medieval_warm',
-                'year': 1000,
-                'label': '☀️ Medieval Warm Period',
-                'color': 'orange',
-                'show': st.checkbox('☀️ Medieval Warm Period (1000 CE)', value=False)
-            },
-            {
-                'name': 'little_ice_age',
-                'year': 1650,
-                'label': '❄️ Little Ice Age',
-                'color': 'lightblue',
-                'show': st.checkbox('❄️ Little Ice Age (1650 CE)', value=False)
-            },
-            {
-                'name': 'industrial_revolution',
-                'year': 1850,
-                'label': '🏭 Industrial Revolution',
-                'color': 'darkgray',
-                'show': st.checkbox('🏭 Industrial Revolution (1850 CE)', value=False)
-            },
-            {
-                'name': 'great_acceleration',
-                'year': 1950,
-                'label': '🚀 Great Acceleration',
-                'color': 'indianred',
-                'show': st.checkbox('🚀 Great Acceleration (1950 CE)', value=False)
-            },
-            {
-                'name': 'recent_warming',
-                'year': 2000,
-                'label': '🔥 Recent Rapid Warming',
-                'color': 'crimson',
-                'show': st.checkbox('🔥 Recent Rapid Warming (2000 CE)', value=False)
-            }
-        ]
 
     # Two column layout for main content
     col_left, col_right = st.columns([6, 4])
@@ -184,30 +166,26 @@ def main():
         fig = plot_simple_temperature(
             df_obs, 
             df_recon,
-            time_markers=time_markers,
             show_old_times=show_old,
             show_new_times=show_new
         )
         st.pyplot(fig)
         
-        # Show explanation for selected time periods
-        active_markers = [marker for marker in time_markers if marker['show']]
+        # Get cartoon character explanations
+        x_axis_explanation, y_axis_explanation = get_cartoon_explanations()
         
-        if active_markers:
-            st.markdown("### About the periods you selected:")
-            for marker in active_markers:
-                if marker['name'] == 'roman_empire':
-                    st.markdown("🏛️ **Roman Empire (100 CE)**: This was a relatively warm period when the Roman Empire was at its height. Temperatures were similar to or slightly warmer than the long-term average.")
-                elif marker['name'] == 'medieval_warm':
-                    st.markdown("☀️ **Medieval Warm Period (1000 CE)**: Parts of the world experienced unusually warm temperatures during this time. Vikings settled in Greenland and crops grew in northern regions.")
-                elif marker['name'] == 'little_ice_age':
-                    st.markdown("❄️ **Little Ice Age (1650 CE)**: A cooler period when glaciers grew larger. Rivers would freeze in winter, and crops sometimes failed due to shorter growing seasons.")
-                elif marker['name'] == 'industrial_revolution':
-                    st.markdown("🏭 **Industrial Revolution (1850 CE)**: This is when people began burning large amounts of coal to power factories. This marks the beginning of rapidly increasing carbon dioxide in the atmosphere.")
-                elif marker['name'] == 'great_acceleration':
-                    st.markdown("🚀 **Great Acceleration (1950 CE)**: After World War II, there was an enormous increase in car use, energy consumption, and manufacturing worldwide, causing much more pollution.")
-                elif marker['name'] == 'recent_warming':
-                    st.markdown("🔥 **Recent Rapid Warming (2000 CE)**: The 21st century has seen record-breaking temperatures. Most of the 20 warmest years on record have occurred since 2000.")
+        # Buttons to show cartoon character explanations
+        st.markdown("### Click to get help from our cartoon friends!")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("👧 Help me understand the Time axis!", key="time_axis"):
+                st.markdown(x_axis_explanation, unsafe_allow_html=True)
+        
+        with col2:
+            if st.button("🧒 Help me understand the Temperature axis!", key="temp_axis"):
+                st.markdown(y_axis_explanation, unsafe_allow_html=True)
     
     with col_right:
         # Explanation buttons with emoji
@@ -220,8 +198,7 @@ def main():
             <p style="font-size:16px">
             • Blue line shows Earth's temperature long ago.<br>
             • Red line shows more recent temperatures.<br> 
-            • See the red line going up quickly? Earth is warming faster than it has for thousands of years!<br>
-            • The colored markers show important periods in history.
+            • See the red line going up quickly? Earth is warming faster than it has for thousands of years!
             </p>
             </div>
             """, unsafe_allow_html=True)
