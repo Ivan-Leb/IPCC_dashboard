@@ -67,23 +67,19 @@ def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_time
     
     return fig
 
-# Define cartoon character explanations
+# Define cartoon character explanations - MUCH SHORTER TEXT
 def get_cartoon_explanations():
-    # Explanations with cartoon characters for the three questions
+    # Shorter explanations with cartoon characters
     what_explanation = """
-    <div style="background-color:#E6F9FF; padding:15px; border-radius:15px; border:2px dashed #6495ED;">
+    <div style="background-color:#E6F9FF; padding:12px; border-radius:15px; border:2px dashed #6495ED;">
     <div style="display:flex; align-items:center;">
-    <div style="font-size:60px; margin-right:15px;">👧</div>
+    <div style="font-size:50px; margin-right:12px;">👧</div>
     <div>
-    <p style="font-size:18px; font-weight:bold;">What Do We See?</p>
-    <p style="font-size:16px;">
-    Hi! I'm Tina Time! Let me show you what's happening on this chart:
-    <br><br>
-    • The <span style="color:blue">blue line</span> shows Earth's temperature long ago.<br>
-    • The <span style="color:red">red line</span> shows more recent temperatures.<br>
-    • See how the red line shoots up at the end? That means Earth is getting much warmer very quickly!
-    <br><br>
-    When you look from left to right, you're traveling through time like a time machine!
+    <p style="font-size:16px; font-weight:bold;">What Do We See?</p>
+    <p style="font-size:14px;">
+    • <span style="color:blue">Blue line</span>: Earth's temperature long ago<br>
+    • <span style="color:red">Red line</span>: Recent temperatures<br>
+    • The red line shoots up at the end - Earth is warming fast!
     </p>
     </div>
     </div>
@@ -91,19 +87,15 @@ def get_cartoon_explanations():
     """
     
     why_explanation = """
-    <div style="background-color:#FFF9E6; padding:15px; border-radius:15px; border:2px dashed #FFB347;">
+    <div style="background-color:#FFF9E6; padding:12px; border-radius:15px; border:2px dashed #FFB347;">
     <div style="display:flex; align-items:center;">
-    <div style="font-size:60px; margin-right:15px;">🧒</div>
+    <div style="font-size:50px; margin-right:12px;">🧒</div>
     <div>
-    <p style="font-size:18px; font-weight:bold;">Why Is This Happening?</p>
-    <p style="font-size:16px;">
-    Hey there! I'm Theo Thermo! Let me explain why Earth is getting warmer:
-    <br><br>
-    Since around 1850, humans have been burning lots of coal, oil, and gas to power our cars, factories, and homes. 
-    This releases invisible gases that act like a blanket around Earth.
-    <br><br>
-    Just like how a blanket keeps you warm in bed, these gases trap heat around our planet. 
-    The more gases we add, the warmer Earth gets!
+    <p style="font-size:16px; font-weight:bold;">Why Is This Happening?</p>
+    <p style="font-size:14px;">
+    Cars, factories, and homes burn fuels that release gases.<br><br>
+    These gases work like a blanket around Earth, trapping heat.<br><br>
+    More gases = warmer planet!
     </p>
     </div>
     </div>
@@ -111,19 +103,15 @@ def get_cartoon_explanations():
     """
     
     help_explanation = """
-    <div style="background-color:#E6FFE6; padding:15px; border-radius:15px; border:2px dashed #4CAF50;">
+    <div style="background-color:#E6FFE6; padding:12px; border-radius:15px; border:2px dashed #4CAF50;">
     <div style="display:flex; align-items:center;">
-    <div style="font-size:60px; margin-right:15px;">🦸‍♀️</div>
+    <div style="font-size:50px; margin-right:12px;">🦸‍♀️</div>
     <div>
-    <p style="font-size:18px; font-weight:bold;">How Can We Help?</p>
-    <p style="font-size:16px;">
-    I'm Captain Climate! Everyone can be a climate superhero by doing these simple things:
-    <br><br>
+    <p style="font-size:16px; font-weight:bold;">How Can We Help?</p>
+    <p style="font-size:14px;">
     🌳 Plant trees • 🚶‍♂️ Walk more • 🚲 Ride bikes<br>
-    💡 Save energy • ♻️ Recycle • 🥕 Eat more plants<br>
-    🚿 Save water • 📚 Learn about climate science
-    <br><br>
-    Remember: Even small actions add up to make a big difference!
+    💡 Save energy • ♻️ Recycle • 🥕 Eat plants<br>
+    🚿 Save water • 📚 Learn more
     </p>
     </div>
     </div>
@@ -193,7 +181,7 @@ def main():
         # Get cartoon character explanations
         what_explanation, why_explanation, help_explanation = get_cartoon_explanations()
         
-        # Explanation buttons with emoji - now with cartoon characters
+        # Explanation buttons with emoji
         st.subheader("Click to learn more!")
         
         # Compact buttons layout with cartoon character responses
