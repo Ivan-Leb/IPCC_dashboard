@@ -28,7 +28,7 @@ def prepare_data():
 
 # Function to create a simple temperature plot
 def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_times=True, show_star=True):
-    fig, ax = plt.subplots(figsize=(8, 4))  # REDUCED SIZE
+    fig, ax = plt.subplots(figsize=(8, 5))  # Slightly larger as we removed some content
     
     # Plot the old temperatures (blue)
     if show_old_times:
@@ -134,21 +134,6 @@ def main():
         # Display the simple graph with filter options applied
         fig = plot_simple_temperature(df_obs, df_recon, show_old, show_new, show_star_now)
         st.pyplot(fig)
-        
-        # Fun interactive quiz
-        if st.button("🎮 Take the Temperature Quiz!"):
-            quiz_question = st.radio(
-                "What happens when Earth gets too warm?",
-                ["More snow everywhere ❄️", 
-                 "Ice starts to melt 💧", 
-                 "Trees grow taller 🌲", 
-                 "Days get shorter 🌙"]
-            )
-            if quiz_question == "Ice starts to melt 💧":
-                st.balloons()
-                st.success("✅ Correct! When Earth gets warmer, ice at the North and South poles melts.")
-            else:
-                st.error("❌ Try again! Think about what happens to ice when it gets warm.")
     
     with col_right:
         # Explanation buttons with emoji - vertical stack
@@ -184,35 +169,6 @@ def main():
             </p>
             </div>
             """, unsafe_allow_html=True)
-    
-    # Images section - 3 column layout
-    st.subheader("Touch to see these pictures!")
-    
-    image_col1, image_col2, image_col3 = st.columns(3)
-    
-    with image_col1:
-        if st.button("🧊 Cold Earth", key="cold"):
-            # More reliable image URL with https
-            st.image("https://images.unsplash.com/photo-1478719059408-592965723cbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80", 
-                   caption="Ice and Snow", width=300)
-            st.markdown("""<p style="font-size:14px; text-align:center">Long ago, Earth had more ice and snow!</p>""", 
-                      unsafe_allow_html=True)
-    
-    with image_col2:
-        if st.button("🌡️ Hot Earth", key="hot"):
-            # FIXED: New reliable image URL from a different source
-            st.image("science.adl5889-fa.jpg", 
-                   caption="Hot and Dry Earth", width=300)
-            st.markdown("""<p style="font-size:14px; text-align:center">Earth is getting too hot and dry now!</p>""", 
-                      unsafe_allow_html=True)
-    
-    with image_col3:
-        if st.button("🌳 Happy Earth", key="happy"):
-            # More reliable image URL
-            st.image("https://cdn.pixabay.com/photo/2015/12/01/20/28/green-1072828_1280.jpg", 
-                   caption="Green Nature", width=300)
-            st.markdown("""<p style="font-size:14px; text-align:center">We can help keep Earth happy!</p>""", 
-                      unsafe_allow_html=True)
 
 # Run the app
 if __name__ == "__main__":
