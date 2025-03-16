@@ -114,20 +114,9 @@ def main():
     # Title with emoji - more compact
     st.title("🌍 Our Earth is Getting Warmer")
     
-    # SIDEBAR WITH KID-FRIENDLY FILTERS
+    # SIDEBAR WITH SIMPLE TOGGLES ONLY
     with st.sidebar:
-        st.image("https://cdn.pixabay.com/photo/2019/06/22/14/42/earth-4291353_640.jpg", width=150)
         st.title("Play with the Chart!")
-        
-        # Temperature filter with emojis
-        st.subheader("🌡️ Temperature Time")
-        temp_view = st.radio(
-            "What temperatures do you want to see?",
-            ["All temperatures", 
-             "Hot times 🔥", 
-             "Cold times ❄️", 
-             "Normal times 😊"]
-        )
         
         # Simple toggles for lines with fun language
         st.subheader("🎨 Show or Hide")
@@ -135,23 +124,6 @@ def main():
         show_new = st.checkbox("Show NEW times (Red line)", value=True)
         show_star_now = st.checkbox("Show golden star ⭐", value=True)
 
-    # Apply filters
-    filtered_obs = df_obs.copy()
-    filtered_recon = df_recon.copy()
-    
-    # Apply temperature filter
-    if temp_view == "Hot times 🔥":
-        filtered_obs = filtered_obs[filtered_obs["Temperature"] > 0.3]
-        filtered_recon = filtered_recon[filtered_recon["Temperature"] > 0.3]
-        
-    elif temp_view == "Cold times ❄️":
-        filtered_obs = filtered_obs[filtered_obs["Temperature"] < -0.2]
-        filtered_recon = filtered_recon[filtered_recon["Temperature"] < -0.2]
-        
-    elif temp_view == "Normal times 😊":
-        filtered_obs = filtered_obs[(filtered_obs["Temperature"] >= -0.2) & (filtered_obs["Temperature"] <= 0.3)]
-        filtered_recon = filtered_recon[(filtered_recon["Temperature"] >= -0.2) & (filtered_recon["Temperature"] <= 0.3)]
-    
     # Two column layout for main content
     col_left, col_right = st.columns([6, 4])
     
@@ -160,14 +132,8 @@ def main():
         st.markdown('<p class="big-text">This picture shows how Earth\'s temperature has changed over a very long time.</p>', unsafe_allow_html=True)
         
         # Display the simple graph with filter options applied
-        fig = plot_simple_temperature(filtered_obs, filtered_recon, show_old, show_new, show_star_now)
+        fig = plot_simple_temperature(df_obs, df_recon, show_old, show_new, show_star_now)
         st.pyplot(fig)
-        
-        # Dynamic questions based on filter selections
-        if temp_view == "Hot times 🔥":
-            st.info("❓ When was Earth the hottest? Look at the chart!")
-        elif temp_view == "Cold times ❄️":
-            st.info("❓ Can you find the coldest time on Earth?")
         
         # Fun interactive quiz
         if st.button("🎮 Take the Temperature Quiz!"):
