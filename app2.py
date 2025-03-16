@@ -119,17 +119,6 @@ def main():
         st.image("https://cdn.pixabay.com/photo/2019/06/22/14/42/earth-4291353_640.jpg", width=150)
         st.title("Play with the Chart!")
         
-        # Time machine filter with fun images
-        st.subheader("🕰️ Time Machine")
-        time_travel = st.radio(
-            "Where do you want to go?",
-            ["Everywhere in time", 
-             "Dinosaur times 🦖", 
-             "Knights and castles 🏰", 
-             "Your grandparents' time 👵👴", 
-             "Your time 👧👦"]
-        )
-        
         # Temperature filter with emojis
         st.subheader("🌡️ Temperature Time")
         temp_view = st.radio(
@@ -145,30 +134,10 @@ def main():
         show_old = st.checkbox("Show OLD times (Blue line)", value=True)
         show_new = st.checkbox("Show NEW times (Red line)", value=True)
         show_star_now = st.checkbox("Show golden star ⭐", value=True)
-        
-        # Fun sound button
-        if st.button("🔊 Temperature Song"):
-            st.audio("https://freesound.org/data/previews/388/388261_7255534-lq.mp3", format="audio/mp3")
 
-    # Apply time filter
+    # Apply filters
     filtered_obs = df_obs.copy()
     filtered_recon = df_recon.copy()
-    
-    if time_travel == "Dinosaur times 🦖":
-        filtered_obs = filtered_obs[filtered_obs["Year"] <= 500]
-        filtered_recon = filtered_recon[filtered_recon["Year"] <= 500]
-        
-    elif time_travel == "Knights and castles 🏰":
-        filtered_obs = filtered_obs[(filtered_obs["Year"] >= 800) & (filtered_obs["Year"] <= 1400)]
-        filtered_recon = filtered_recon[(filtered_recon["Year"] >= 800) & (filtered_recon["Year"] <= 1400)]
-        
-    elif time_travel == "Your grandparents' time 👵👴":
-        filtered_obs = filtered_obs[(filtered_obs["Year"] >= 1900) & (filtered_obs["Year"] <= 1980)]
-        filtered_recon = filtered_recon[(filtered_recon["Year"] >= 1900) & (filtered_recon["Year"] <= 1980)]
-        
-    elif time_travel == "Your time 👧👦":
-        filtered_obs = filtered_obs[filtered_obs["Year"] >= 2000]
-        filtered_recon = filtered_recon[filtered_recon["Year"] >= 2000]
     
     # Apply temperature filter
     if temp_view == "Hot times 🔥":
@@ -195,12 +164,10 @@ def main():
         st.pyplot(fig)
         
         # Dynamic questions based on filter selections
-        if time_travel == "Your time 👧👦":
-            st.info("❓ Look at the NEW times line (red). Is it going up or down? What does this mean?")
-        elif time_travel == "Dinosaur times 🦖":
-            st.info("❓ How was Earth's temperature during dinosaur times? Was it warmer or cooler?")
-        elif show_new and not show_old:
-            st.info("❓ The NEW times line (red) is going up fast! Why do you think that's happening?")
+        if temp_view == "Hot times 🔥":
+            st.info("❓ When was Earth the hottest? Look at the chart!")
+        elif temp_view == "Cold times ❄️":
+            st.info("❓ Can you find the coldest time on Earth?")
         
         # Fun interactive quiz
         if st.button("🎮 Take the Temperature Quiz!"):
@@ -284,4 +251,3 @@ def main():
 # Run the app
 if __name__ == "__main__":
     main()
-
