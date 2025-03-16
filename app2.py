@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Function to prepare the data
 def prepare_data():
@@ -42,8 +41,8 @@ def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=
     # Add a horizontal line at zero
     ax.axhline(0, color="black", linestyle="--", alpha=0.5)
     
-    # Add time markers if provided
-    if time_markers and time_markers.any():
+    # Add time markers if provided - FIXED THIS PART
+    if time_markers and len(time_markers) > 0:  # Changed from time_markers.any()
         for marker in time_markers:
             if marker['show']:
                 year = marker['year']
