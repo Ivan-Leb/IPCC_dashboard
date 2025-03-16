@@ -41,8 +41,8 @@ def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=
     # Add a horizontal line at zero
     ax.axhline(0, color="black", linestyle="--", alpha=0.5)
     
-    # Add time markers if provided - FIXED THIS PART
-    if time_markers and len(time_markers) > 0:  # Changed from time_markers.any()
+    # Add time markers if provided
+    if time_markers and len(time_markers) > 0:
         for marker in time_markers:
             if marker['show']:
                 year = marker['year']
@@ -77,7 +77,7 @@ def plot_simple_temperature(df_obs, df_recon, time_markers=None, show_old_times=
         ax.legend(fontsize=12, loc="upper left")
     
     # Set limits
-    ax.set_xlim(df_recon["Year"].min(), df_obs["Year"].max())
+    ax.set_xlim(0, 2020)  # Set to exactly the 0-2020 range we have data for
     
     plt.tight_layout()
     
@@ -124,52 +124,52 @@ def main():
         show_old = st.checkbox("Show Blue Line (Long Ago)", value=True)
         show_new = st.checkbox("Show Red Line (Now)", value=True)
         
-        # Time period markers with images
-        st.subheader("📅 Show Important Times")
+        # Time period markers with more historically accurate periods
+        st.subheader("📅 Show Important Historical Periods")
         
-        # Define markers for different periods
+        # Define markers for different periods - using historically accurate periods within the 0-2000 CE range
         time_markers = [
             {
-                'name': 'dinosaurs',
-                'year': 100,  # Arbitrary year for visual representation
-                'label': '🦕 Dinosaur Times',
-                'color': 'green',
-                'show': st.checkbox('🦕 Dinosaur Times', value=False)
+                'name': 'roman_empire',
+                'year': 100,
+                'label': '🏛️ Roman Empire',
+                'color': 'gold',
+                'show': st.checkbox('🏛️ Roman Empire (100 CE)', value=False)
             },
             {
-                'name': 'ice_age',
-                'year': 500,
-                'label': '❄️ Ice Age',
-                'color': 'lightblue',
-                'show': st.checkbox('❄️ Ice Age', value=False)
-            },
-            {
-                'name': 'roman',
+                'name': 'medieval_warm',
                 'year': 1000,
-                'label': '🏛️ Roman Times',
-                'color': 'sandybrown',
-                'show': st.checkbox('🏛️ Roman Times', value=False)
+                'label': '☀️ Medieval Warm Period',
+                'color': 'orange',
+                'show': st.checkbox('☀️ Medieval Warm Period (1000 CE)', value=False)
             },
             {
-                'name': 'industry_begins',
+                'name': 'little_ice_age',
+                'year': 1650,
+                'label': '❄️ Little Ice Age',
+                'color': 'lightblue',
+                'show': st.checkbox('❄️ Little Ice Age (1650 CE)', value=False)
+            },
+            {
+                'name': 'industrial_revolution',
                 'year': 1850,
-                'label': '🏭 Factories Begin',
+                'label': '🏭 Industrial Revolution',
                 'color': 'darkgray',
-                'show': st.checkbox('🏭 Factories Begin', value=False)
+                'show': st.checkbox('🏭 Industrial Revolution (1850 CE)', value=False)
             },
             {
-                'name': 'cars',
-                'year': 1920,
-                'label': '🚗 Cars Everywhere',
-                'color': 'darkgray',
-                'show': st.checkbox('🚗 Cars Everywhere', value=False)
+                'name': 'great_acceleration',
+                'year': 1950,
+                'label': '🚀 Great Acceleration',
+                'color': 'indianred',
+                'show': st.checkbox('🚀 Great Acceleration (1950 CE)', value=False)
             },
             {
-                'name': 'modern',
-                'year': 1980,
-                'label': '💻 Modern Times',
-                'color': 'purple',
-                'show': st.checkbox('💻 Modern Times', value=False)
+                'name': 'recent_warming',
+                'year': 2000,
+                'label': '🔥 Recent Rapid Warming',
+                'color': 'crimson',
+                'show': st.checkbox('🔥 Recent Rapid Warming (2000 CE)', value=False)
             }
         ]
 
@@ -178,7 +178,7 @@ def main():
     
     with col_left:
         # Simple explanation
-        st.markdown('<p class="big-text">This picture shows how Earth\'s temperature has changed over a very long time.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-text">This picture shows how Earth\'s temperature has changed over the last 2000 years.</p>', unsafe_allow_html=True)
         
         # Display temperature graph
         fig = plot_simple_temperature(
@@ -194,20 +194,20 @@ def main():
         active_markers = [marker for marker in time_markers if marker['show']]
         
         if active_markers:
-            st.markdown("### About the times you selected:")
+            st.markdown("### About the periods you selected:")
             for marker in active_markers:
-                if marker['name'] == 'dinosaurs':
-                    st.markdown("🦕 **Dinosaur Times**: Earth was much warmer! Dinosaurs lived in a hot world with no ice at the poles.")
-                elif marker['name'] == 'ice_age':
-                    st.markdown("❄️ **Ice Age**: Earth was much colder. Giant ice sheets covered much of North America and Europe.")
-                elif marker['name'] == 'roman':
-                    st.markdown("🏛️ **Roman Times**: Temperature was fairly stable. The Roman Empire flourished in this climate.")
-                elif marker['name'] == 'industry_begins':
-                    st.markdown("🏭 **Factories Begin**: People started burning lots of coal. This is when the temperature started rising faster.")
-                elif marker['name'] == 'cars':
-                    st.markdown("🚗 **Cars Everywhere**: More cars and factories meant more pollution and warming.")
-                elif marker['name'] == 'modern':
-                    st.markdown("💻 **Modern Times**: Our world today is warming very quickly because of all the energy we use.")
+                if marker['name'] == 'roman_empire':
+                    st.markdown("🏛️ **Roman Empire (100 CE)**: This was a relatively warm period when the Roman Empire was at its height. Temperatures were similar to or slightly warmer than the long-term average.")
+                elif marker['name'] == 'medieval_warm':
+                    st.markdown("☀️ **Medieval Warm Period (1000 CE)**: Parts of the world experienced unusually warm temperatures during this time. Vikings settled in Greenland and crops grew in northern regions.")
+                elif marker['name'] == 'little_ice_age':
+                    st.markdown("❄️ **Little Ice Age (1650 CE)**: A cooler period when glaciers grew larger. Rivers would freeze in winter, and crops sometimes failed due to shorter growing seasons.")
+                elif marker['name'] == 'industrial_revolution':
+                    st.markdown("🏭 **Industrial Revolution (1850 CE)**: This is when people began burning large amounts of coal to power factories. This marks the beginning of rapidly increasing carbon dioxide in the atmosphere.")
+                elif marker['name'] == 'great_acceleration':
+                    st.markdown("🚀 **Great Acceleration (1950 CE)**: After World War II, there was an enormous increase in car use, energy consumption, and manufacturing worldwide, causing much more pollution.")
+                elif marker['name'] == 'recent_warming':
+                    st.markdown("🔥 **Recent Rapid Warming (2000 CE)**: The 21st century has seen record-breaking temperatures. Most of the 20 warmest years on record have occurred since 2000.")
     
     with col_right:
         # Explanation buttons with emoji
@@ -218,10 +218,10 @@ def main():
             st.markdown("""
             <div style="background-color:#E6F9FF; padding:10px; border-radius:10px;">
             <p style="font-size:16px">
-            • Blue line shows how Earth was long ago.<br>
-            • Red line shows how Earth is now.<br> 
-            • See the red line going up? Earth is getting warmer!<br>
-            • The colored markers show important times in history.
+            • Blue line shows Earth's temperature long ago.<br>
+            • Red line shows more recent temperatures.<br> 
+            • See the red line going up quickly? Earth is warming faster than it has for thousands of years!<br>
+            • The colored markers show important periods in history.
             </p>
             </div>
             """, unsafe_allow_html=True)
@@ -230,7 +230,7 @@ def main():
             st.markdown("""
             <div style="background-color:#FFF9E6; padding:10px; border-radius:10px;">
             <p style="font-size:16px">
-            Cars, factories, and things we use make pollution. This pollution makes a blanket around Earth that traps heat - like too many blankets on your bed!
+            Since the Industrial Revolution (around 1850), humans have been burning fossil fuels like coal, oil, and natural gas. This releases greenhouse gases that trap heat in our atmosphere, like a blanket getting thicker and thicker around our planet.
             </p>
             </div>
             """, unsafe_allow_html=True)
@@ -245,22 +245,6 @@ def main():
             </p>
             </div>
             """, unsafe_allow_html=True)
-        
-        # Show image explanation for each time period
-        st.markdown("### Time Period Icons:")
-        
-        # Display all time period icons in a grid
-        icon_cols = st.columns(2)
-        
-        with icon_cols[0]:
-            st.markdown("🦕 = Dinosaur Times")
-            st.markdown("❄️ = Ice Age")
-            st.markdown("🏛️ = Roman Times")
-        
-        with icon_cols[1]:
-            st.markdown("🏭 = Factories Begin")
-            st.markdown("🚗 = Cars Everywhere")
-            st.markdown("💻 = Modern Times")
 
 # Run the app
 if __name__ == "__main__":
