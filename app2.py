@@ -67,7 +67,7 @@ def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_time
     
     return fig
 
-# Define cartoon character explanations - RENAMED CHARACTERS WITH QUICKER INTROS
+# Define cartoon character explanations - FIXED SPACING IN THEO'S EXPLANATION
 def get_cartoon_explanations():
     # Shorter explanations with renamed characters
     what_explanation = """
@@ -93,8 +93,8 @@ def get_cartoon_explanations():
     <div>
     <p style="font-size:16px; font-weight:bold;">Professor Theo says:</p>
     <p style="font-size:14px;">
-    • Cars, factories, and homes burn fuels that release gases.<br><br>
-    • These gases work like a blanket around Earth, trapping heat.<br><br>
+    • Cars, factories, and homes burn fuels that release gases<br>
+    • These gases work like a blanket around Earth, trapping heat<br>
     • More gases = warmer planet!
     </p>
     </div>
@@ -197,3 +197,4 @@ def main():
 # Run the app
 if __name__ == "__main__":
     main()
+
