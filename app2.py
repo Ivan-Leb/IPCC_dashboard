@@ -93,9 +93,9 @@ def get_cartoon_explanations():
     <div>
     <p style="font-size:16px; font-weight:bold;">Professor Theo says:</p>
     <p style="font-size:14px;">
-    Cars, factories, and homes burn fuels that release gases.<br><br>
-    These gases work like a blanket around Earth, trapping heat.<br><br>
-    More gases = warmer planet!
+    • Cars, factories, and homes burn fuels that release gases.<br><br>
+    • These gases work like a blanket around Earth, trapping heat.<br><br>
+    • More gases = warmer planet!
     </p>
     </div>
     </div>
