@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from PIL import Image
-import base64
 
 # Function to prepare the data
 def prepare_data():
@@ -69,50 +67,70 @@ def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_time
     
     return fig
 
-# Define cartoon character explanation components
+# Define cartoon character explanations
 def get_cartoon_explanations():
-    # Since we can't actually include images in this response, 
-    # we'll use emoji as placeholders. In a real implementation, 
-    # you'd replace these with actual cartoon character images.
-    
-    x_axis_explanation = """
-    <div style="background-color:#FFE6E6; padding:15px; border-radius:15px; border:2px dashed #FF6347;">
+    # Explanations with cartoon characters for the three questions
+    what_explanation = """
+    <div style="background-color:#E6F9FF; padding:15px; border-radius:15px; border:2px dashed #6495ED;">
     <div style="display:flex; align-items:center;">
     <div style="font-size:60px; margin-right:15px;">👧</div>
     <div>
-    <p style="font-size:18px; font-weight:bold;">What does the Time (x-axis) show?</p>
+    <p style="font-size:18px; font-weight:bold;">What Do We See?</p>
     <p style="font-size:16px;">
-    Hi! I'm Tina Time! The bottom of the chart shows <b>years</b> from a long time ago (year 0) 
-    until now (year 2020). As you move from left to right, you're traveling through time like a time machine!
+    Hi! I'm Tina Time! Let me show you what's happening on this chart:
     <br><br>
-    The <span style="color:blue">blue line</span> shows temperature from a long time ago.
-    The <span style="color:red">red line</span> shows more recent temperatures.
+    • The <span style="color:blue">blue line</span> shows Earth's temperature long ago.<br>
+    • The <span style="color:red">red line</span> shows more recent temperatures.<br>
+    • See how the red line shoots up at the end? That means Earth is getting much warmer very quickly!
+    <br><br>
+    When you look from left to right, you're traveling through time like a time machine!
     </p>
     </div>
     </div>
     </div>
     """
     
-    y_axis_explanation = """
-    <div style="background-color:#E6F9FF; padding:15px; border-radius:15px; border:2px dashed #6495ED;">
+    why_explanation = """
+    <div style="background-color:#FFF9E6; padding:15px; border-radius:15px; border:2px dashed #FFB347;">
     <div style="display:flex; align-items:center;">
     <div style="font-size:60px; margin-right:15px;">🧒</div>
     <div>
-    <p style="font-size:18px; font-weight:bold;">What does the Temperature (y-axis) show?</p>
+    <p style="font-size:18px; font-weight:bold;">Why Is This Happening?</p>
     <p style="font-size:16px;">
-    Hey there! I'm Theo Thermo! The side of the chart shows how the Earth's temperature has changed.
+    Hey there! I'm Theo Thermo! Let me explain why Earth is getting warmer:
     <br><br>
-    The middle line (0) is the normal temperature. When the line goes up ↑, Earth is getting warmer.
-    When the line goes down ↓, Earth is getting cooler.
+    Since around 1850, humans have been burning lots of coal, oil, and gas to power our cars, factories, and homes. 
+    This releases invisible gases that act like a blanket around Earth.
     <br><br>
-    See how the red line shoots up at the end? That means Earth is getting much warmer very quickly!
+    Just like how a blanket keeps you warm in bed, these gases trap heat around our planet. 
+    The more gases we add, the warmer Earth gets!
     </p>
     </div>
     </div>
     </div>
     """
     
-    return x_axis_explanation, y_axis_explanation
+    help_explanation = """
+    <div style="background-color:#E6FFE6; padding:15px; border-radius:15px; border:2px dashed #4CAF50;">
+    <div style="display:flex; align-items:center;">
+    <div style="font-size:60px; margin-right:15px;">🦸‍♀️</div>
+    <div>
+    <p style="font-size:18px; font-weight:bold;">How Can We Help?</p>
+    <p style="font-size:16px;">
+    I'm Captain Climate! Everyone can be a climate superhero by doing these simple things:
+    <br><br>
+    🌳 Plant trees • 🚶‍♂️ Walk more • 🚲 Ride bikes<br>
+    💡 Save energy • ♻️ Recycle • 🥕 Eat more plants<br>
+    🚿 Save water • 📚 Learn about climate science
+    <br><br>
+    Remember: Even small actions add up to make a big difference!
+    </p>
+    </div>
+    </div>
+    </div>
+    """
+    
+    return what_explanation, why_explanation, help_explanation
 
 # Streamlit App
 def main():
@@ -170,58 +188,23 @@ def main():
             show_new_times=show_new
         )
         st.pyplot(fig)
-        
-        # Get cartoon character explanations
-        x_axis_explanation, y_axis_explanation = get_cartoon_explanations()
-        
-        # Buttons to show cartoon character explanations
-        st.markdown("### Click to get help from our cartoon friends!")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            if st.button("👧 Help me understand the Time axis!", key="time_axis"):
-                st.markdown(x_axis_explanation, unsafe_allow_html=True)
-        
-        with col2:
-            if st.button("🧒 Help me understand the Temperature axis!", key="temp_axis"):
-                st.markdown(y_axis_explanation, unsafe_allow_html=True)
     
     with col_right:
-        # Explanation buttons with emoji
+        # Get cartoon character explanations
+        what_explanation, why_explanation, help_explanation = get_cartoon_explanations()
+        
+        # Explanation buttons with emoji - now with cartoon characters
         st.subheader("Click to learn more!")
         
-        # Compact buttons layout
+        # Compact buttons layout with cartoon character responses
         if st.button("🔎 What Do We See?", key="what"):
-            st.markdown("""
-            <div style="background-color:#E6F9FF; padding:10px; border-radius:10px;">
-            <p style="font-size:16px">
-            • Blue line shows Earth's temperature long ago.<br>
-            • Red line shows more recent temperatures.<br> 
-            • See the red line going up quickly? Earth is warming faster than it has for thousands of years!
-            </p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(what_explanation, unsafe_allow_html=True)
         
         if st.button("❓ Why Is This Happening?", key="why"):
-            st.markdown("""
-            <div style="background-color:#FFF9E6; padding:10px; border-radius:10px;">
-            <p style="font-size:16px">
-            Since the Industrial Revolution (around 1850), humans have been burning fossil fuels like coal, oil, and natural gas. This releases greenhouse gases that trap heat in our atmosphere, like a blanket getting thicker and thicker around our planet.
-            </p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(why_explanation, unsafe_allow_html=True)
         
         if st.button("🌱 How Can We Help?", key="help"):
-            st.markdown("""
-            <div style="background-color:#E6FFE6; padding:10px; border-radius:10px;">
-            <p style="font-size:16px">
-            🌳 Plant trees • 🚶 Walk more • 🚲 Ride bikes<br>
-            💡 Save energy • ♻️ Recycle • 🥕 Eat more plants<br>
-            🚿 Save water • 📚 Learn about climate science
-            </p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(help_explanation, unsafe_allow_html=True)
 
 # Run the app
 if __name__ == "__main__":
