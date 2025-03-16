@@ -53,7 +53,7 @@ def plot_simple_temperature(df_obs, df_recon):
     
     # Simplify the y-axis
     ax.set_yticks([-1, 0, 1])
-    ax.set_yticklabels(["Cooler ❄️", "Normal", "Warmer"], fontsize=12)
+    ax.set_yticklabels(["Cooler", "Normal", "Warmer"], fontsize=12)
     
     # Set background color
     ax.set_facecolor("#F0F8FF")  # Light blue background
