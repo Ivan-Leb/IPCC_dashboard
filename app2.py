@@ -67,15 +67,15 @@ def plot_simple_temperature(df_obs, df_recon, show_old_times=True, show_new_time
     
     return fig
 
-# Define cartoon character explanations - MUCH SHORTER TEXT
+# Define cartoon character explanations - RENAMED CHARACTERS WITH QUICKER INTROS
 def get_cartoon_explanations():
-    # Shorter explanations with cartoon characters
+    # Shorter explanations with renamed characters
     what_explanation = """
     <div style="background-color:#E6F9FF; padding:12px; border-radius:15px; border:2px dashed #6495ED;">
     <div style="display:flex; align-items:center;">
-    <div style="font-size:50px; margin-right:12px;">👧</div>
+    <div style="font-size:50px; margin-right:12px;">👩‍🏫</div>
     <div>
-    <p style="font-size:16px; font-weight:bold;">What Do We See?</p>
+    <p style="font-size:16px; font-weight:bold;">Professor Tina says:</p>
     <p style="font-size:14px;">
     • <span style="color:blue">Blue line</span>: Earth's temperature long ago<br>
     • <span style="color:red">Red line</span>: Recent temperatures<br>
@@ -89,9 +89,9 @@ def get_cartoon_explanations():
     why_explanation = """
     <div style="background-color:#FFF9E6; padding:12px; border-radius:15px; border:2px dashed #FFB347;">
     <div style="display:flex; align-items:center;">
-    <div style="font-size:50px; margin-right:12px;">🧒</div>
+    <div style="font-size:50px; margin-right:12px;">👨‍🔬</div>
     <div>
-    <p style="font-size:16px; font-weight:bold;">Why Is This Happening?</p>
+    <p style="font-size:16px; font-weight:bold;">Professor Theo says:</p>
     <p style="font-size:14px;">
     Cars, factories, and homes burn fuels that release gases.<br><br>
     These gases work like a blanket around Earth, trapping heat.<br><br>
@@ -107,7 +107,7 @@ def get_cartoon_explanations():
     <div style="display:flex; align-items:center;">
     <div style="font-size:50px; margin-right:12px;">🦸‍♀️</div>
     <div>
-    <p style="font-size:16px; font-weight:bold;">How Can We Help?</p>
+    <p style="font-size:16px; font-weight:bold;">Captain Climate says:</p>
     <p style="font-size:14px;">
     🌳 Plant trees • 🚶‍♂️ Walk more • 🚲 Ride bikes<br>
     💡 Save energy • ♻️ Recycle • 🥕 Eat plants<br>
@@ -156,7 +156,7 @@ def main():
     with st.sidebar:
         st.title("Play with the Chart!")
         
-        # Simple toggles for lines - ONLY KEEPING THESE TWO FILTERS
+        # Simple toggles for lines
         st.subheader("🎨 Show or Hide Lines")
         show_old = st.checkbox("Show Blue Line (Long Ago)", value=True)
         show_new = st.checkbox("Show Red Line (Now)", value=True)
